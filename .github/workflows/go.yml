@@ -23,7 +23,7 @@ jobs:
 
     - name: Build the Go app
       run: |
-        cd /D:/STUDY/TERM-6/pursovproject
+        cd D:/STUDY/TERM-6/pursovproject
         go build -o app app.go
 
     - name: Log in to Docker Hub
