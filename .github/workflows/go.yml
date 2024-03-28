@@ -32,7 +32,7 @@ jobs:
 
     - name: Build Docker image
       run: docker build -t my-go-app .
-
+      
     - name: Push Docker image
       run: docker push my-go-app
 
