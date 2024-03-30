@@ -37,4 +37,4 @@ jobs:
   # run: docker push my-go-app
 
     - name: Run Docker container
-      run: docker run -p 8888:8888 my-go-app
+      run: docker run -p 127.0.0.1:8888:8888 my-go-app
