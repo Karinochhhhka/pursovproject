@@ -32,8 +32,8 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Push Docker image
-        run: docker push my-go-app
+    #  - name: Push Docker image
+     #   run: docker push my-go-app
 
       - name: Run Docker container
         run: docker run -d -p 8888:8888 my-go-app
