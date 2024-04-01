@@ -39,7 +39,7 @@ jobs:
     #steps:
       - name: Push Docker image 
         #run: docker push my-go-app
-        run: docker push zhkerin13656/my-go-app  
+        run: docker push my-go-app  
 
       - name: Deploy (run docker container)
         run: docker run -d -p 8888:8888 my-go-app
