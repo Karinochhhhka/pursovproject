@@ -6,7 +6,7 @@ name: Publish Docker image
 on:
   push:
     branches:
-      - main
+      - feature
   pull_request:
     branches:
       - main
@@ -35,12 +35,12 @@ jobs:
       - name: Build Docker image
         run: docker build -t my-go-app .
 
-  deploy:
-    runs-on: self-hosted
+  #deploy:
+    #runs-on: self-hosted
         
-    steps:
-    #  - name: Push Docker image
-     #   run: docker push my-go-apЫp
+    #steps:
+      - name: Push Docker image 
+        run: docker push my-go-app
 
-      - name: Run Docker container
+      - name: Deploy (run docker container)
         run: docker run -d -p 8888:8888 my-go-app
