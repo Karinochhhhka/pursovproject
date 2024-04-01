@@ -35,6 +35,8 @@ jobs:
 
   #deploy:
     #runs-on: self-hosted
+      - name: add Tag
+        run: docker tag my-go-app zhkerin13656/my-go-app
         
     #steps:
       - name: Push Docker image 
