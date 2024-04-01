@@ -4,10 +4,10 @@ name: Publish Docker image
 on:
   push:
     branches:
-      - feature
+      - main
   pull_request:
     branches:
-      - main
+      - feature
 
 jobs:
   build:
