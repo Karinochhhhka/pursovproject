@@ -33,9 +33,8 @@ jobs:
 
       - name: Stop and remove existing Docker container
         run: |
-          docker stop my-go-app || true
-          docker rm my-go-app || true
-        shell: bash
+          docker stop my-go-app
+          docker rm my-go-app
 
       - name: Build Docker image
         run: docker build -t my-go-app .
