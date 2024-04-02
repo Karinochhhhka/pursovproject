@@ -30,6 +30,11 @@ jobs:
       - name: Log in to Docker Hub
         run: docker login -u zhkerin13656 -p Karina131103
 
+      - name: Stop and remove existing Docker container
+        run: |
+          docker stop my-go-app || true
+          docker rm my-go-app || true
+
       - name: Build Docker image
         run: docker build -t my-go-app .
 
@@ -37,7 +42,7 @@ jobs:
     #runs-on: self-hosted
       - name: add Tag
         run: docker tag my-go-app zhkerin13656/my-go-app
-        
+    
     #steps:
       - name: Push Docker image 
         #run: docker push my-go-app  
