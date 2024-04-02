@@ -38,7 +38,7 @@ jobs:
       - name: Build Docker image
         run: docker build -t my-go-app .
 
-  #deploy:
+  #deploy:  
     #runs-on: self-hosted
       - name: add Tag
         run: docker tag my-go-app zhkerin13656/my-go-app
