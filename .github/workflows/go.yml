@@ -35,6 +35,7 @@ jobs:
         run: |
           docker stop my-go-app || true
           docker rm my-go-app || true
+        shell: bash
 
       - name: Build Docker image
         run: docker build -t my-go-app .
