@@ -44,7 +44,7 @@ jobs:
           docker stop $CONTAINER_IDS
           docker rm $CONTAINER_IDS
           }
-        shell: pwsh
+        shell: powershell
     
 
       - name: Build Docker image
