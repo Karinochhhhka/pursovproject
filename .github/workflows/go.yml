@@ -38,11 +38,7 @@ jobs:
 
       - name: Stop and remove existing Docker container    
         run: |
-          CONTAINER_ID=$(docker ps -aq --filter "ancestor=my-go-app")
-          if [ -n "$CONTAINER_ID" ]; then
-          docker stop "$CONTAINER_ID"
-          docker rm "$CONTAINER_ID"
-          fi
+          docker ps
     
 
       - name: Build Docker image
