@@ -31,10 +31,19 @@ jobs:
       - name: Log in to Docker Hub
         run: docker login -u zhkerin13656 -p Karina131103
 
-      - name: Stop and remove existing Docker container
+     # - name: Stop and remove existing Docker container
+       # run: |
+       #   docker stop my-go-app
+       #   docker rm my-go-app
+
+      - name: Stop and remove existing Docker container    
         run: |
-          docker stop my-go-app
-          docker rm my-go-app
+          CONTAINER_ID=$(docker ps -aq --filter "ancestor=my-go-app")
+          if [ -n "$CONTAINER_ID" ]; then
+          docker stop "$CONTAINER_ID"
+          docker rm "$CONTAINER_ID"
+          fi
+    
 
       - name: Build Docker image
         run: docker build -t my-go-app .
