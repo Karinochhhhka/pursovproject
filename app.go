@@ -38,15 +38,17 @@ func generateRandomNumber() int {
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		// Отображение HTML-формы с кнопкой
+		// Отображение HTML-формы с полем ввода и кнопкой
 		html := `
 		<html>
 		<body>
+			<input type="number" id="numberInput">
 			<button onclick="getRandomNumber()">Generate Random Number</button>
 			<p id="randomNumber"></p>
 			<script>
 				function getRandomNumber() {
-					fetch("/random")
+					var numberInput = document.getElementById("numberInput").value;
+					fetch("/random?max=" + numberInput)
 						.then(response => response.text())
 						.then(number => {
 							document.getElementById("randomNumber").textContent = "Random number: " + number;
@@ -59,8 +61,18 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		`
 		fmt.Fprint(w, html)
 	} else if r.Method == "GET" && r.URL.Path == "/random" {
+		maxStr := r.URL.Query().Get("max")
+		max, err := strconv.Atoi(maxStr)
+		if err != nil {
+			http.Error(w, "Invalid input", http.StatusBadRequest)
+			return
+		}
+
 		// Генерация случайного числа и его отправка в ответе
 		randomNumber := generateRandomNumber()
+		if max > 0 {
+			randomNumber = randomNumber % (max + 1)
+		}
 		fmt.Fprint(w, strconv.Itoa(randomNumber))
 	}
 }
