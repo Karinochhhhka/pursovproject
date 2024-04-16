@@ -30,7 +30,6 @@ import (
 	"math/rand"
 	"net/http"
 	"strconv"
-	"strings"
 )
 
 func generateRandomNumber() int {
@@ -61,9 +60,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		</body>
 		</html>
 		`
-		w.Header().Set("Content-Type", "text/html")
-		html = strings.ReplaceAll(html, "<", "&lt;")
-		html = strings.ReplaceAll(html, ">", "&gt;")
+		w.Header().Set("Content-Type", "text/html") // Установка заголовка Content-Type
 		fmt.Fprint(w, html)
 	} else if r.Method == "GET" && r.URL.Path == "/random" {
 		// Генерация случайного числа и его отправка в ответе
