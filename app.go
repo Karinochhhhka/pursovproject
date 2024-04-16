@@ -27,20 +27,18 @@ package main
 
 import (
 	"fmt"
-	//"log"
 	"net/http"
-	//"math/rand"
 	"strings"
 )
 
 func main() {
 	http.HandleFunc("/", searchHandler)
-	http.ListenAndServe(":8888", nil)
+	http.ListenAndServe(":8080", nil)
 }
 
 func searchHandler(w http.ResponseWriter, r *http.Request) {
-	// Получаем введенное слово из параметра запроса
-	query := r.URL.Query().Get("query")
+	// Получаем введенное слово из параметра запроса или из формы ввода
+	query := r.FormValue("query")
 
 	// Текст, в котором будет осуществляться поиск
 	text := "Это пример текста, в котором мы будем искать введенное слово."
@@ -48,16 +46,37 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	// Осуществляем поиск в тексте
 	found := strings.Contains(text, query)
 
-	// Выводим текст и результат на страницу
-	fmt.Fprintf(w, "Текст: шрашврпшрпшкрпщугрпугпушпум слово слово слово %s\n", text)
-	fmt.Fprintf(w, "Введенное слово: %s\n", query)
-	if found {
-		fmt.Fprintf(w, "Слово найдено в тексте.")
-	} else {
-		fmt.Fprintf(w, "Слово не найдено в тексте.")
-	}
-}
+	// Выводим HTML форму с текстом, полем ввода и кнопкой
+	fmt.Fprintf(w, `
+		<!DOCTYPE html>
+		<html>
+		<head>
+			<title>Поиск слова</title>
+		</head>
+		<body>
+			<h1>Поиск слова в тексте</h1>
+			<form method="post">
+				<label for="query">Введите слово:</label>
+				<input type="text" id="query" name="query">
+				<input type="submit" value="Поиск">
+			</form>
+			<hr>
+			<p>Текст: %s</p>
+			<p>Введенное слово: %s</p>
+	`, text, query)
 
+	// Выводим результат поиска на страницу
+	if found {
+		fmt.Fprintf(w, "<p>Слово найдено в тексте.</p>")
+	} else {
+		fmt.Fprintf(w, "<p>Слово не найдено в тексте.</p>")
+	}
+
+	fmt.Fprintf(w, `
+		</body>
+		</html>
+	`)
+}
 
 // func handler(w http.ResponseWriter, r *http.Request) {
 // 	fmt.Fprintln(w, "Hello, 世界")
