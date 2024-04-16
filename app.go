@@ -1,27 +1,75 @@
+// package main
+
+// import (
+// 	"fmt"
+// 	"log"
+// 	"net/http"
+// 	"math/rand"
+// )
+
+// func generateRandomNumber() int {
+//      return rand.Intn(100)
+// }
+
+// func handler(w http.ResponseWriter, r *http.Request) {
+//     randomNumber := generateRandomNumber()
+//     fmt.Fprintf(w, "Random number: %d", randomNumber)
+// }
+
+// func main() {
+//     http.HandleFunc("/", handler)
+//     fmt.Println("Running demo app. Press Ctrl+C to exit...")
+//     log.Fatal(http.ListenAndServe(":8888", nil))
+// }
+
 package main
 
 import (
 	"fmt"
 	"log"
-	"net/http"
 	"math/rand"
+	"net/http"
+	"strconv"
 )
 
 func generateRandomNumber() int {
-     return rand.Intn(100)
+	return rand.Intn(100)
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-    randomNumber := generateRandomNumber()
-    fmt.Fprintf(w, "Random number: %d", randomNumber)
+	if r.Method == "GET" {
+		// Отображение HTML-формы с кнопкой
+		html := `
+		<html>
+		<body>
+			<button onclick="getRandomNumber()">Generate Random Number</button>
+			<p id="randomNumber"></p>
+			<script>
+				function getRandomNumber() {
+					fetch("/random")
+						.then(response => response.text())
+						.then(number => {
+							document.getElementById("randomNumber").textContent = "Random number: " + number;
+						})
+						.catch(error => console.log(error));
+				}
+			</script>
+		</body>
+		</html>
+		`
+		fmt.Fprint(w, html)
+	} else if r.Method == "GET" && r.URL.Path == "/random" {
+		// Генерация случайного числа и его отправка в ответе
+		randomNumber := generateRandomNumber()
+		fmt.Fprint(w, strconv.Itoa(randomNumber))
+	}
 }
 
 func main() {
-    http.HandleFunc("/", handler)
-    fmt.Println("Running demo app. Press Ctrl+C to exit...")
-    log.Fatal(http.ListenAndServe(":8888", nil))
+	http.HandleFunc("/", handler)
+	fmt.Println("Running demo app. Press Ctrl+C to exit...")
+	log.Fatal(http.ListenAndServe(":8888", nil))
 }
-
 
 // package main
 
