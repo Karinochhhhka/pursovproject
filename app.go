@@ -27,55 +27,57 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"net/http"
-	"strings"
+	"strconv"
 )
 
 func main() {
-	http.HandleFunc("/", searchHandler)
+	http.HandleFunc("/", randomHandler)
 	http.ListenAndServe(":8080", nil)
 }
 
-func searchHandler(w http.ResponseWriter, r *http.Request) {
-	// Получаем введенное слово из параметра запроса или из формы ввода
-	query := r.FormValue("query")
+func randomHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		// Генерируем случайное число
+		randomNumber := rand.Intn(100)
 
-	// Текст, в котором будет осуществляться поиск
-	text := "Это пример текста, в котором мы будем искать введенное слово."
+		// Преобразуем число в строку
+		randomString := strconv.Itoa(randomNumber)
 
-	// Осуществляем поиск в тексте
-	found := strings.Contains(text, query)
-
-	// Выводим HTML форму с текстом, полем ввода и кнопкой
-	fmt.Fprintf(w, `
-		<!DOCTYPE html>
-		<html>
-		<head>
-			<title>Поиск слова</title>
-		</head>
-		<body>
-			<h1>Поиск слова в тексте</h1>
-			<form method="post">
-				<label for="query">Введите слово:</label>
-				<input type="text" id="query" name="query">
-				<input type="submit" value="Поиск">
-			</form>
-			<hr>
-			<p>Текст: %s</p>
-			<p>Введенное слово: %s</p>
-	`, text, query)
-
-	// Выводим результат поиска на страницу
-	if found {
-		fmt.Fprintf(w, "<p>Слово найдено в тексте.</p>")
+		// Выводим HTML с кнопкой и случайным числом
+		fmt.Fprintf(w, `
+			<!DOCTYPE html>
+			<html>
+			<head>
+				<title>Случайное число</title>
+			</head>
+			<body>
+				<h1>Случайное число</h1>
+				<p>Сгенерированное число: %s</p>
+				<form method="post">
+					<input type="submit" value="Сгенерировать еще">
+				</form>
+			</body>
+			</html>
+		`, randomString)
 	} else {
-		fmt.Fprintf(w, "<p>Слово не найдено в тексте.</p>")
+		// Выводим HTML с кнопкой для генерации случайного числа
+		fmt.Fprintf(w, `
+			<!DOCTYPE html>
+			<html>
+			<head>
+				<title>Случайное число</title>
+			</head>
+			<body>
+				<h1>Случайное число</h1>
+				<form method="post">
+					<input type="submit" value="Сгенерировать">
+				</form>
+			</body>
+			</html>
+		`)
 	}
-
-	fmt.Fprintf(w, `
-		</body>
-		</html>
-	`)
 }
 
 // func handler(w http.ResponseWriter, r *http.Request) {
