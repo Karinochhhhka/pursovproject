@@ -27,9 +27,9 @@ package main
 
 import (
 	"fmt"
-	"log"
+	//"log"
 	"net/http"
-	"math/rand"
+	//"math/rand"
 	"strings"
 )
 
