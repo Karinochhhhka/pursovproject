@@ -5,7 +5,7 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
-	"time"
+	//"time"
 )
 
 func randomHandler(w http.ResponseWriter, r *http.Request) {
