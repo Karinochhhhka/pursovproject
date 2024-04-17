@@ -29,57 +29,51 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
-	//"strconv"
+	"strconv"
 )
 
 func generateRandomNumber() int {
 	return rand.Intn(100)
 }
 
-func numberHandler(w http.ResponseWriter, r *http.Request) {
+func randomNumberHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		randomNumber := generateRandomNumber()
-		text := fmt.Sprintf("Random number: %d", randomNumber)
-		fmt.Fprintf(w, text)
+		response := strconv.Itoa(randomNumber)
+		fmt.Fprintf(w, response)
 	}
 }
 
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	html := `
-		<!DOCTYPE html>
-		<html>
-		<head>
-			<title>Random Number Generator</title>
-		</head>
-		<body>
-			<h1>Random Number Generator</h1>
-			<form action="/" method="post">
-				<button type="submit">Generate Random Number</button>
-			</form>
-			<div id="result"></div>
-			<script>
-				document.querySelector("form").addEventListener("submit", function(event) {
-					event.preventDefault();
-					fetch("/", { method: "POST" })
-						.then(response => response.text())
-						.then(text => {
-							document.getElementById("result").textContent = text;
-						});
-				});
-			</script>
-		</body>
-		</html>
-	`
-	fmt.Fprintf(w, html)
-}
-
 func main() {
-	http.HandleFunc("/", indexHandler)
-	http.HandleFunc("/number", numberHandler)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		html := `
+			<!DOCTYPE html>
+			<html>
+			<head>
+				<title>Random Number Generator</title>
+			</head>
+			<body>
+				<h1>Random Number Generator</h1>
+				<button onclick="generateRandomNumber()">Generate Random Number</button>
+				<div id="result"></div>
+				<script>
+					function generateRandomNumber() {
+						fetch("/", { method: "POST" })
+							.then(response => response.text())
+							.then(text => {
+								document.getElementById("result").textContent = text;
+							});
+					}
+				</script>
+			</body>
+			</html>
+		`
+		fmt.Fprintf(w, html)
+	})
+
 	fmt.Println("Running demo app. Press Ctrl+C to exit...")
 	log.Fatal(http.ListenAndServe(":8888", nil))
 }
-
 // package main
 
 // import (
