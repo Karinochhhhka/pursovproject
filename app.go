@@ -1,3 +1,23 @@
+package main
+
+import (
+	"fmt"
+	"log"
+	"math/rand"
+	"net/http"
+	"time"
+)
+
+func randomHandler(w http.ResponseWriter, r *http.Request) {
+	randomNumber := rand.Intn(100)
+	fmt.Fprintf(w, "Random number: %d", randomNumber)
+}
+
+func main() {
+	http.HandleFunc("/", randomHandler)
+	fmt.Println("Running demo app. Press Ctrl+C to exit...")
+	log.Fatal(http.ListenAndServe(":8888", nil))
+}
 // package main
 
 // import (
@@ -22,58 +42,58 @@
 //     log.Fatal(http.ListenAndServe(":8888", nil))
 // }
 
-package main
+// package main
 
-import (
-	"fmt"
-	"log"
-	"math/rand"
-	"net/http"
-	"strconv"
-)
+// import (
+// 	"fmt"
+// 	"log"
+// 	"math/rand"
+// 	"net/http"
+// 	"strconv"
+// )
 
-func generateRandomNumber() int {
-	return rand.Intn(100)
-}
+// func generateRandomNumber() int {
+// 	return rand.Intn(100)
+// }
 
-func randomNumberHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "POST" {
-		randomNumber := generateRandomNumber()
-		response := strconv.Itoa(randomNumber)
-		fmt.Fprintf(w, response)
-	}
-}
+// func randomNumberHandler(w http.ResponseWriter, r *http.Request) {
+// 	if r.Method == "POST" {
+// 		randomNumber := generateRandomNumber()
+// 		response := strconv.Itoa(randomNumber)
+// 		fmt.Fprintf(w, response)
+// 	}
+// }
 
-func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		html := `
-			<!DOCTYPE html>
-			<html>
-			<head>
-				<title>Random Number Generator</title>
-			</head>
-			<body>
-				<h1>Random Number Generator</h1>
-				<button onclick="generateRandomNumber()">Generate Random Number</button>
-				<div id="result"></div>
-				<script>
-					function generateRandomNumber() {
-						fetch("/", { method: "POST" })
-							.then(response => response.text())
-							.then(text => {
-								document.getElementById("result").textContent = text;
-							});
-					}
-				</script>
-			</body>
-			</html>
-		`
-		fmt.Fprintf(w, html)
-	})
+// func main() {
+// 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+// 		html := `
+// 			<!DOCTYPE html>
+// 			<html>
+// 			<head>
+// 				<title>Random Number Generator</title>
+// 			</head>
+// 			<body>
+// 				<h1>Random Number Generator</h1>
+// 				<button onclick="generateRandomNumber()">Generate Random Number</button>
+// 				<div id="result"></div>
+// 				<script>
+// 					function generateRandomNumber() {
+// 						fetch("/", { method: "POST" })
+// 							.then(response => response.text())
+// 							.then(text => {
+// 								document.getElementById("result").textContent = text;
+// 							});
+// 					}
+// 				</script>
+// 			</body>
+// 			</html>
+// 		`
+// 		fmt.Fprintf(w, html)
+// 	})
 
-	fmt.Println("Running demo app. Press Ctrl+C to exit...")
-	log.Fatal(http.ListenAndServe(":8888", nil))
-}
+// 	fmt.Println("Running demo app. Press Ctrl+C to exit...")
+// 	log.Fatal(http.ListenAndServe(":8888", nil))
+// }
 // package main
 
 // import (
