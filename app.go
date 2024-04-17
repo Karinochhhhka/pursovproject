@@ -36,41 +36,46 @@ func generateRandomNumber() int {
 	return rand.Intn(100)
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "GET" {
-		// Отображение HTML-формы с кнопкой
-		html := `
+func numberHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		randomNumber := generateRandomNumber()
+		text := fmt.Sprintf("Random number: %d", randomNumber)
+		fmt.Fprintf(w, text)
+	}
+}
+
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	html := `
+		<!DOCTYPE html>
 		<html>
 		<head>
 			<title>Random Number Generator</title>
 		</head>
 		<body>
-			<button onclick="getRandomNumber()">Generate Random Number</button>
-			<p id="randomNumber"></p>
+			<h1>Random Number Generator</h1>
+			<form action="/" method="post">
+				<button type="submit">Generate Random Number</button>
+			</form>
+			<div id="result"></div>
 			<script>
-				function getRandomNumber() {
-					fetch("/random")
+				document.querySelector("form").addEventListener("submit", function(event) {
+					event.preventDefault();
+					fetch("/", { method: "POST" })
 						.then(response => response.text())
-						.then(number => {
-							document.getElementById("randomNumber").textContent = "Random number: " + number;
-						})
-						.catch(error => console.log(error));
-				}
+						.then(text => {
+							document.getElementById("result").textContent = text;
+						});
+				});
 			</script>
 		</body>
 		</html>
-		`
-		w.Header().Set("Content-Type", "text/html") // Установка заголовка Content-Type
-		fmt.Fprint(w, html)
-	} else if r.Method == "GET" && r.URL.Path == "/random" {
-		// Генерация случайного числа и его отправка в ответе
-		randomNumber := generateRandomNumber()
-		fmt.Fprint(w, strconv.Itoa(randomNumber))
-	}
+	`
+	fmt.Fprintf(w, html)
 }
 
 func main() {
-	http.HandleFunc("/", handler)
+	http.HandleFunc("/", indexHandler)
+	http.HandleFunc("/number", numberHandler)
 	fmt.Println("Running demo app. Press Ctrl+C to exit...")
 	log.Fatal(http.ListenAndServe(":8888", nil))
 }
