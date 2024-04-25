@@ -58,9 +58,21 @@ jobs:
         #run: docker push my-go-app  
         run: docker push zhkerin13656/my-go-app:latest
 
+      - name: Create artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-go-app-artifact
+          path: ./artifacts/.
+
   deploy:  
     runs-on: self-hosted
     steps:
+    
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: my-go-app-artifact
+          path: ./.
       
       - name: Deploy (run docker container)
         run: docker run -d -p 8888:8888 my-go-app
