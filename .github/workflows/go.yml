@@ -58,8 +58,18 @@ jobs:
         #run: docker push my-go-app  
         run: docker push zhkerin13656/my-go-app:latest
 
-      - name: Create artifact
-        uses: actions/upload-artifact@v2
+      # - name: Create artifact
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: my-go-app-artifact
+      #     path: D:\STUDY\TERM-6\pursovproject\artifacts
+
+
+      - name: Create artifact data
+        run:
+          echo "This is body of artifact_1." > D:\STUDY\TERM-6\pursovproject\artifacts\my-go-app-artifact.txt
+      - name: Save Artifact
+        uses: actions/upload-artifact@v3
         with:
           name: my-go-app-artifact
           path: D:\STUDY\TERM-6\pursovproject\artifacts
