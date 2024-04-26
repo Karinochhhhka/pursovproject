@@ -32,7 +32,7 @@ jobs:
         run: |
           # cd Documents/STUDY/TERM-6/pursovproject
           # cd /Users/karinazoglo/Documents/STUDY/TERM-6/pursovproject
-          cd $GITHUB_WORKSPACE/Documents/STUDY/TERM-6/pursovproject
+          # cd $GITHUB_WORKSPACE/Documents/STUDY/TERM-6/pursovproject
           go build -o app app.go
    
    # # - name: Set up Go
