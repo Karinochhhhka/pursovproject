@@ -31,14 +31,12 @@ jobs:
           export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
           # export GOPATH=$HOME/Documents/go" 
 
-      
-
-      # - name: Build the Go app
-      #   run: |
-      #     #cd D:/STUDY/TERM-6/pursovproject
-      #     cd /Documents/STUDY/TERM-6/pursovproject
-      #     # /Users/karinazoglo/Documents/STUDY/TERM-6/pursovproject
-      #     go build -o app app.go
+      - name: Build the Go app
+        run: |
+          #cd D:/STUDY/TERM-6/pursovproject
+          cd pursovproject
+          # /Users/karinazoglo/Documents/STUDY/TERM-6/pursovproject
+          go build -o app app.go
 
       - name: Log in to Docker Hub
         #run: docker login -u zhkerin13656 -p Karina131103
