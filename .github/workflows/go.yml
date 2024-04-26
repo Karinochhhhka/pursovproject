@@ -34,7 +34,7 @@ jobs:
       - name: Build the Go app
         run: |
           #cd D:/STUDY/TERM-6/pursovproject
-          cd pursovproject
+          cd /Users/karinazoglo/Documents/STUDY/actions-runner/actions-runner-osx-x64-2.283.3/_work/pursovproject/pursovproject
           # /Users/karinazoglo/Documents/STUDY/TERM-6/pursovproject
           go build -o app app.go
 
