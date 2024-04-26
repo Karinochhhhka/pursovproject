@@ -33,12 +33,12 @@ jobs:
 
       
 
-      - name: Build the Go app
-        run: |
-          #cd D:/STUDY/TERM-6/pursovproject
-          cd /Documents/STUDY/TERM-6/pursovproject
-          # /Users/karinazoglo/Documents/STUDY/TERM-6/pursovproject
-          go build -o app app.go
+      # - name: Build the Go app
+      #   run: |
+      #     #cd D:/STUDY/TERM-6/pursovproject
+      #     cd /Documents/STUDY/TERM-6/pursovproject
+      #     # /Users/karinazoglo/Documents/STUDY/TERM-6/pursovproject
+      #     go build -o app app.go
 
       - name: Log in to Docker Hub
         #run: docker login -u zhkerin13656 -p Karina131103
@@ -49,27 +49,27 @@ jobs:
        #   docker stop my-go-app
        #   docker rm my-go-app
 
-      - name: Stop and remove existing Docker container    
-        run: |
-          docker ps
-          $CONTAINER_IDS = docker ps -aq --filter "ancestor=my-go-app"
-          if ($CONTAINER_IDS) {
-          docker stop $CONTAINER_IDS
-          docker rm $CONTAINER_IDS
-          }
-        shell: bash
-        #shell:powershell
+      # - name: Stop and remove existing Docker container    
+      #   run: |
+      #     docker ps
+      #     $CONTAINER_IDS = docker ps -aq --filter "ancestor=my-go-app"
+      #     if ($CONTAINER_IDS) {
+      #     docker stop $CONTAINER_IDS
+      #     docker rm $CONTAINER_IDS
+      #     }
+      #   shell: bash
+      #   #shell:powershell
     
 
-      - name: Build Docker image
-        run: docker build -t my-go-app .
+      # - name: Build Docker image
+      #   run: docker build -t my-go-app .
 
-      - name: add Tag
-        run: docker tag my-go-app zhkerin13656/my-go-app
+      # - name: add Tag
+      #   run: docker tag my-go-app zhkerin13656/my-go-app
 
-      - name: Push Docker image 
-        #run: docker push my-go-app  
-        run: docker push zhkerin13656/my-go-app:latest
+      # - name: Push Docker image 
+      #   #run: docker push my-go-app  
+      #   run: docker push zhkerin13656/my-go-app:latest
 
       # - name: Create artifact
       #   uses: actions/upload-artifact@v2
