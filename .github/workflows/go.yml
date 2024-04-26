@@ -24,7 +24,7 @@ jobs:
           go-version: '1.17'
           # Используйте node12 вместо node16
           # using: node16
-          using: node12
+      
 
       - name: Build the Go app
         run: |
