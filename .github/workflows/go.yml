@@ -15,14 +15,17 @@ jobs:
     runs-on: macos-latest
     #self-hosted
 
-    env:
-      GOROOT: /usr/local/go
-      GOPATH: $HOME/go
-      PATH: $GOPATH/bin:$GOROOT/bin:$PATH
+    # env:
+    #   GOROOT: /usr/local/go
+    #   GOPATH: $HOME/go
+    #   PATH: $GOPATH/bin:$GOROOT/bin:$PATH
 
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
+      - name: Set up Go
+        run: |
+          export GOROOT=/usr/local/go
+          export GOPATH=$HOME/go
+          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
   
       - name: Build the Go app
         run: |
