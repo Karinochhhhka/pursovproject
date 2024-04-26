@@ -12,8 +12,8 @@ on:
    
 jobs: 
   build:
-    runs-on: self-hosted
-    #self-hoste dmacos-latest
+    runs-on: macos
+    #self-hosted macos-latest
 
     # env:
     #   GOROOT: /usr/local/go
