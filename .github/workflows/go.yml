@@ -30,7 +30,7 @@ jobs:
 
       - name: Build the Go app
         run: |
-          cd $HOME/Documents/STUDY/TERM-6/pursovproject
+          cd ~Documents/STUDY/actions-runner/actions-runner-osx-x64-2.283.3/_work/pursovproject/pursovproject
           go build -o app app.go
    #  steps:
    #    - name: Set up Go
