@@ -119,6 +119,127 @@ jobs:
 
 
 
+# name: Publish Docker image
+
+# #on: [push]
+# on:
+#   push:
+#     branches:
+#       - main
+#       - feature
+#   pull_request:
+#     branches:
+#       - feature
+   
+# jobs: 
+#   build:
+#     runs-on: macos-latest
+#     #self-hosted macos-latest
+
+#     # env:
+#     #   GOROOT: /usr/local/go
+#     #   GOPATH: $HOME/go
+#     #   PATH: $GOPATH/bin:$GOROOT/bin:$PATH
+#     steps:
+#       - name: Set up Go
+#         uses: actions/setup-go@v3
+#         with:
+#           go-version: '1.17' 
+          
+#       - name: Check out code
+#         uses: actions/checkout@v2
+        
+#       # - name: Set up Docker
+#       #   uses: docker/setup-docker@v2   
+
+#       - name: Build the Go app
+#         run: |
+#           # cd Documents/STUDY/TERM-6/pursovproject
+#           # cd /Users/karinazoglo/Documents/STUDY/TERM-6/pursovproject
+#           # cd $GITHUB_WORKSPACE/Documents/STUDY/TERM-6/pursovproject
+#           go build -o app app.go
+   
+#    # # - name: Set up Go
+#    #    #   run: |
+#    #    #     export GOROOT=/usr/local/go
+#    #    #     export GOPATH=$HOME/go
+#    #    #     export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+  
+#    #    - name: Build the Go app
+#    #      run: |
+#    #        cd ~Documents/STUDY/TERM-6/pursovproject
+#    #        go build -o app app.go
+
+#       - name: Login to Docker Hub
+#         uses: docker/login-action@v3
+#         with:
+#           username: ${{ secrets.DOCKER_USERNAME }}
+#           password: ${{ secrets.DOCKER_PASSWORD }}
+#       # - name: Log in to Docker Hub
+#       #   run: docker login -u zhkerin13656 -p Karina131103
+#       #   #run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        
+#       # - name: Stop and remove existing Docker container
+#       #   run: |
+#       #     docker stop my-go-app
+#       #     docker rm my-go-app
+
+#       - name: Stop and remove existing Docker container    
+#         run: |
+#           docker ps
+#           $CONTAINER_IDS = docker ps -aq --filter "ancestor=my-go-app"
+#           if ($CONTAINER_IDS) {
+#           docker stop $CONTAINER_IDS
+#           docker rm $CONTAINER_IDS
+#           }
+#         shell: bash
+#         #shell:powershell
+    
+
+#       - name: Build Docker image
+#         run: docker build -t my-go-app .
+
+#       - name: add Tag
+#         run: docker tag my-go-app zhkerin13656/my-go-app
+
+#       - name: Push Docker image 
+#         #run: docker push my-go-app  
+#         run: docker push zhkerin13656/my-go-app:latest
+
+#       # - name: Create artifact
+#       #   uses: actions/upload-artifact@v2
+#       #   with:
+#       #     name: my-go-app-artifact
+#       #     path: D:\STUDY\TERM-6\pursovproject\artifacts
+
+
+#       # - name: Create artifact data
+#       #   run:
+#       #     echo "This is body of artifact_1." > D:\STUDY\TERM-6\pursovproject\artifacts\my-go-app-artifact.txt
+#       # - name: Save Artifact
+#       #   uses: actions/upload-artifact@v3
+#       #   with:
+#       #     name: my-go-app-artifact
+#       #     path: D:\STUDY\TERM-6\pursovproject\artifacts
+
+#   deploy:  
+#     runs-on: self-hosted
+#     steps:
+    
+#       # - name: Download artifact
+#       #   uses: actions/download-artifact@v2
+#       #   with:
+#       #     name: my-go-app-artifact
+#       #     path: ./.
+      
+#       - name: Deploy (run docker container)
+#         run: docker run -d -p 8888:8888 my-go-app
+
+
+
+
+
+
 
 
 
