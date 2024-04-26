@@ -12,7 +12,8 @@ on:
    
 jobs: 
   build:
-    runs-on: self-hosted
+    runs-on: macos-latest
+    #self-hosted
 
     env:
       GOROOT: /usr/local/go
@@ -25,7 +26,7 @@ jobs:
   
       - name: Build the Go app
         run: |
-          cd /Users/karinazoglo/Documents/STUDY/TERM-6/pursovproject
+          cd ~Documents/STUDY/TERM-6/pursovproject
           go build -o app app.go
 
   #     - name: Log in to Docker Hub
