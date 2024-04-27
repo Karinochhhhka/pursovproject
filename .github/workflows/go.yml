@@ -36,7 +36,7 @@ jobs:
         #run: |
           #cd ~/Documents/STUDY/TERM-6/pursovproject
         #run: docker build -t my-go-app ./docker
-        run: docker build -t my-go-app:latest /Documents/STUDY/TERM-6/pursovproject
+        run: docker build -t my-go-app:latest /Users/karinazoglo/Documents/STUDY/TERM-6/pursovproject
 
         #run: docker build -t my-go-app .
 
