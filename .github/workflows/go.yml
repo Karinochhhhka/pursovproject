@@ -37,7 +37,7 @@ jobs:
           #cd ~/Documents/STUDY/TERM-6/pursovproject
         #run: docker build -t my-go-app ./docker
       - name: Build Docker image
-        run: docker buildx build -t my-go-app:latest --load /Users/karinazoglo/Documents/STUDY/TERM-6/pursovproject
+        run: docker buildx build --tag my-go-app:latest --load /Users/karinazoglo/Documents/STUDY/TERM-6/pursovproject
         #run: docker build -t my-go-app .
 
       # - name: add Tag
