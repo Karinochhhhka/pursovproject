@@ -34,23 +34,23 @@ jobs:
       
       - name: Build Docker image
         run: |
-          cd $GITHUB_WORKSPACE/Documents/STUDY/TERM-6/pursovproject
+          cd /Documents/STUDY/TERM-6/pursovproject
           docker build -t my-go-app .
 
         #run: docker build -t my-go-app .
 
-      - name: add Tag
-        run: docker tag my-go-app zhkerin13656/my-go-app
+      # - name: add Tag
+      #   run: docker tag my-go-app zhkerin13656/my-go-app
 
-      - name: Push Docker image 
-        #run: docker push my-go-app  
-        run: docker push zhkerin13656/my-go-app:latest
+      # - name: Push Docker image 
+      #   #run: docker push my-go-app  
+      #   run: docker push zhkerin13656/my-go-app:latest
 
-  deploy:  
-    runs-on: macos-latest
-    steps:      
-      - name: Deploy (run docker container)
-        run: docker run -d -p 8888:8888 my-go-app
+  # deploy:  
+  #   runs-on: macos-latest
+  #   steps:      
+  #     - name: Deploy (run docker container)
+  #       run: docker run -d -p 8888:8888 my-go-app
 
     # - name: Build the Go app
       #   run: |
