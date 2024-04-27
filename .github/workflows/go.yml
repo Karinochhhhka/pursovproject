@@ -32,12 +32,12 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       
-      - name: Build Docker image
+      #- name: Build Docker image
         #run: |
           #cd ~/Documents/STUDY/TERM-6/pursovproject
         #run: docker build -t my-go-app ./docker
-        run: docker build -t my-go-app:latest /Users/karinazoglo/Documents/STUDY/TERM-6/pursovproject
-
+      - name: Build Docker image
+        run: docker buildx build -t my-go-app:latest --load /Users/karinazoglo/Documents/STUDY/TERM-6/pursovproject
         #run: docker build -t my-go-app .
 
       # - name: add Tag
