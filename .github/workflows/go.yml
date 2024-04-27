@@ -35,7 +35,8 @@ jobs:
       - name: Build Docker image
         #run: |
           #cd ~/Documents/STUDY/TERM-6/pursovproject
-        run: build -t my-go-app ./docker
+        run: docker build -t my-go-app ./docker
+        #run: docker build -t my-go-app:latest /Documents/STUDY/TERM-6/pursovproject
 
         #run: docker build -t my-go-app .
 
