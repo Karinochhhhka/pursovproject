@@ -31,29 +31,10 @@ jobs:
         #run: docker login -u zhkerin13656 -p Karina131103
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-        
-      # - name: Build the Go app
-      #   run: |
-      #     # cd Documents/STUDY/TERM-6/pursovproject
-      #     # cd /Users/karinazoglo/Documents/STUDY/TERM-6/pursovproject
-      #     # cd $GITHUB_WORKSPACE/Documents/STUDY/TERM-6/pursovproject
-      #     go build -o app app.go
-
-      # - name: Stop and remove existing Docker container    
-      #   run: |
-      #     docker ps
-      #     $CONTAINER_IDS = docker ps -aq --filter "ancestor=my-go-app"
-      #     if ($CONTAINER_IDS) {
-      #     docker stop $CONTAINER_IDS
-      #     docker rm $CONTAINER_IDS
-      #     }
-      #   shell: bash
-      #   #shell:powershell
-    
-
+      
       - name: Build Docker image
         run: |
-          cd Documents/STUDY/TERM-6/pursovproject
+          cd $GITHUB_WORKSPACE/Documents/STUDY/TERM-6/pursovproject
           docker build -t my-go-app .
 
         #run: docker build -t my-go-app .
@@ -70,6 +51,27 @@ jobs:
     steps:      
       - name: Deploy (run docker container)
         run: docker run -d -p 8888:8888 my-go-app
+
+    # - name: Build the Go app
+      #   run: |
+      #     # cd Documents/STUDY/TERM-6/pursovproject
+      #     # cd /Users/karinazoglo/Documents/STUDY/TERM-6/pursovproject
+      #     # cd $GITHUB_WORKSPACE/Documents/STUDY/TERM-6/pursovproject
+      #     go build -o app app.go
+
+      # - name: Stop and remove existing Docker container    
+      #   run: |
+      #     docker ps
+      #     $CONTAINER_IDS = docker ps -aq --filter "ancestor=my-go-app"
+      #     if ($CONTAINER_IDS) {
+      #     docker stop $CONTAINER_IDS
+      #     docker rm $CONTAINER_IDS
+      #     }
+      #   shell: bash
+      #   #shell:powershell
+
+
+      
 
         
    # - name: Create artifact
