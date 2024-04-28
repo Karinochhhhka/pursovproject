@@ -10,33 +10,65 @@ on:
     branches:
       - feature
    
-jobs: 
+jobs:
   build:
-    runs-on: macos-latest
-
+    runs-on: self-hosted
+      
     steps:
-      - name: Set up Go
-        uses: actions/setup-go@v3
-        with:
-          go-version: '1.17' 
+      - name: Check out code
+        uses: actions/checkout@v2
+      
+      # - name: Set up Go
+      #   uses: actions/setup-go@v3
+        # with:
+        #   go-version: '1.17'
 
-      - name: Install Docker
+      - name: Log in to Docker Hub
+        #run: docker login -u zhkerin13656 -p Karina131103
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Stop and remove existing Docker container    
         run: |
-          brew update
-          brew install --cask docker
-          open --background /Applications/Docker.app
-          docker --version
-          
+          docker ps
+          $CONTAINER_IDS = docker ps -aq --filter "ancestor=my-go-app"
+          if ($CONTAINER_IDS) {
+          docker stop $CONTAINER_IDS
+          docker rm $CONTAINER_IDS
+          }
+        shell: powershell
+    
+
       - name: Build Docker image
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          DOCKERFILE_PATH: ${{ secrets.PROJECT_FOLDER }}  
-          IMAGE_NAME: my-go-app
-          IMAGE_TAG: latest
-        run: |
-          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-          docker build --file=$DOCKERFILE_PATH -t $IMAGE_NAME:$IMAGE_TAG .
+        run: docker build -t my-go-app .
+
+      - name: add Tag
+        run: docker tag my-go-app zhkerin13656/my-go-app
+
+      - name: Push Docker image 
+        #run: docker push my-go-app  
+        run: docker push zhkerin13656/my-go-app:latest
+
+      # - name: Create artifact
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: my-go-app-artifact
+      #     path: D:\STUDY\TERM-6\pursovproject\artifacts
+
+
+      # - name: Create artifact data
+      #   run:
+      #     echo "This is body of artifact_1." > D:\STUDY\TERM-6\pursovproject\artifacts\my-go-app-artifact.txt
+      # - name: Save Artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: my-go-app-artifact
+      #     path: D:\STUDY\TERM-6\pursovproject\artifacts
+
+  deploy:  
+    runs-on: self-hosted
+    steps:
+      - name: Deploy (run docker container)
+        run: docker run -d -p 8888:8888 my-go-app
 
       # - name: Log in to Docker Hub
       #   #run: docker login -u zhkerin13656 -p Karina131103
