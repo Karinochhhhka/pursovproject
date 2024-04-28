@@ -35,7 +35,7 @@ jobs:
       #   run: apt-get install docker-buildx-plugin
 
       - name: Change directory to project
-        run: cd /Users/karinazoglo/Documents/STUDY/actions-runner/actions-runner-osx-x64-2.283.3/_work/pursovproject/pursovproject
+        run: cd ~/Documents/STUDY/actions-runner/actions-runner-osx-x64-2.283.3/_work/pursovproject/pursovproject
 
       - name: List directories in project
         run: ls -d */
