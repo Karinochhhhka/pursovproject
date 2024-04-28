@@ -34,16 +34,22 @@ jobs:
       # - name: Install buildx
       #   run: apt-get install docker-buildx-plugin
 
+      - name: Change directory to project
+        run: cd ${{ github.workspace }}
+
+      - name: List directories in project
+        run: ls -d */
       
       #- name: Build Docker image
         #run: |
           #cd ~/Documents/STUDY/TERM-6/pursovproject
         #run: docker build -t my-go-app ./docker
       - name: Build Docker image
+        run: docker build -t my-go-app .
         #run: docker buildx build my-go-app:latest
-        run: |
-          cd /Users/karinazoglo/Documents/STUDY/actions-runner/actions-runner-osx-x64-2.283.3/_work/pursovproject/pursovproject
-          docker build -t my-go-app .
+        # run: |
+        #   cd /Users/karinazoglo/Documents/STUDY/actions-runner/actions-runner-osx-x64-2.283.3/_work/pursovproject/pursovproject
+        #   docker build -t my-go-app .
 
       - name: add Tag
         run: docker tag my-go-app zhkerin13656/my-go-app
