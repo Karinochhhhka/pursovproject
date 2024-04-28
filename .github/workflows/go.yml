@@ -45,7 +45,6 @@ jobs:
         run: docker tag my-go-app zhkerin13656/my-go-app
 
       - name: Push Docker image 
-        #run: docker push my-go-app  
         run: docker push zhkerin13656/my-go-app:latest
 
       # - name: Create artifact
