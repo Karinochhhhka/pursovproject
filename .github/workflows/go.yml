@@ -26,26 +26,39 @@ jobs:
           brew install --cask docker
           open --background /Applications/Docker.app
           docker --version
-
-      - name: Log in to Docker Hub
-        #run: docker login -u zhkerin13656 -p Karina131103
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-
-      # - name: Install buildx
-      #   run: apt-get install docker-buildx-plugin
-
-      - name: Change directory to project
-        run: cd ~/Documents/STUDY/actions-runner/actions-runner-osx-x64-2.283.3/_work/pursovproject/pursovproject
-
-      - name: List directories in project
-        run: ls -d */
-      
-      #- name: Build Docker image
-        #run: |
-          #cd ~/Documents/STUDY/TERM-6/pursovproject
-        #run: docker build -t my-go-app ./docker
+          
       - name: Build Docker image
-        run: docker build -t my-go-app .
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKERFILE_PATH: ${{ secrets.PROJECT_FOLDER }}  
+          IMAGE_NAME: my-go-app
+          IMAGE_TAG: latest
+        run: |
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          docker build --file=$DOCKERFILE_PATH -t $IMAGE_NAME:$IMAGE_TAG .
+
+      # - name: Log in to Docker Hub
+      #   #run: docker login -u zhkerin13656 -p Karina131103
+      #   run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      # # - name: Install buildx
+      # #   run: apt-get install docker-buildx-plugin
+
+      # # - name: Change directory to project
+      # #   run: cd ctions-runner-osx-x64-2.283.3/_work/pursovproject/pursovproject
+
+      # # - name: List directories in project
+      # #   run: ls -d */
+      
+      # #- name: Build Docker image
+      #   #run: |
+      #     #cd ~/Documents/STUDY/TERM-6/pursovproject
+      #   #run: docker build -t my-go-app ./docker
+        
+      # - name: Build Docker image
+      #   run: docker build -t my-go-app .
+        
         #run: docker buildx build my-go-app:latest
         # run: |
         #   cd /Users/karinazoglo/Documents/STUDY/actions-runner/actions-runner-osx-x64-2.283.3/_work/pursovproject/pursovproject
