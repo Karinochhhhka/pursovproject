@@ -27,9 +27,6 @@ jobs:
           open --background /Applications/Docker.app
           docker --version
 
-      - name: Install Docker 2
-        uses: docker/setup-docker@v2
-
       - name: Log in to Docker Hub
         #run: docker login -u zhkerin13656 -p Karina131103
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
@@ -41,7 +38,8 @@ jobs:
         #run: docker build -t my-go-app ./docker
       - name: Build Docker image
         #run: docker buildx build my-go-app:latest
-        run: docker build -t my-go-app .
+        run: docker build -t my-go-app ${{ github.workspace }}
+        #run: docker build -t my-go-app .
 
       - name: add Tag
         run: docker tag my-go-app zhkerin13656/my-go-app
