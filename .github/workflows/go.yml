@@ -47,7 +47,14 @@ jobs:
       - name: Push Docker image 
         run: docker push zhkerin13656/my-go-app:latest
 
-      # - name: Create artifact
+  deploy:  
+    runs-on: self-hosted
+    steps:
+      - name: Deploy (run docker container)
+        run: docker run -d -p 8888:8888 my-go-app
+
+
+   # - name: Create artifact
       #   uses: actions/upload-artifact@v2
       #   with:
       #     name: my-go-app-artifact
@@ -63,11 +70,6 @@ jobs:
       #     name: my-go-app-artifact
       #     path: D:\STUDY\TERM-6\pursovproject\artifacts
 
-  deploy:  
-    runs-on: self-hosted
-    steps:
-      - name: Deploy (run docker container)
-        run: docker run -d -p 8888:8888 my-go-app
 
       # - name: Log in to Docker Hub
       #   #run: docker login -u zhkerin13656 -p Karina131103
@@ -95,12 +97,12 @@ jobs:
         #   cd /Users/karinazoglo/Documents/STUDY/actions-runner/actions-runner-osx-x64-2.283.3/_work/pursovproject/pursovproject
         #   docker build -t my-go-app .
 
-      - name: add Tag
-        run: docker tag my-go-app zhkerin13656/my-go-app
+      # - name: add Tag
+      #   run: docker tag my-go-app zhkerin13656/my-go-app
 
-      - name: Push Docker image 
-        #run: docker push my-go-app  
-        run: docker push zhkerin13656/my-go-app:latest
+      # - name: Push Docker image 
+      #   #run: docker push my-go-app  
+      #   run: docker push zhkerin13656/my-go-app:latest
 
   # deploy:  
   #   runs-on: macos-latest
