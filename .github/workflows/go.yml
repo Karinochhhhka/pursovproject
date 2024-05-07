@@ -36,7 +36,7 @@ jobs:
           docker rm $CONTAINER_IDS
           }
         shell: powershell
-    
+      
 
       - name: Build Docker image
         run: docker build -t my-go-app .
