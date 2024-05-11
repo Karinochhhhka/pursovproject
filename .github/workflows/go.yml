@@ -9,7 +9,7 @@ on:
   pull_request:
     branches:
       - feature
-   
+  
 jobs: 
   build:
     runs-on: self-hosted   
@@ -18,11 +18,8 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
      
-      # - name: Set up Go
-      #   uses: actions/setup-go@v3
-        # with:
-        #   go-version: '1.17'
-    
+
+  
       - name: Log in to Docker Hub
         #run: docker login -u zhkerin13656 -p Karina131103
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
@@ -36,7 +33,7 @@ jobs:
           docker rm $CONTAINER_IDS
           }
         shell: powershell
-      
+    
 
       - name: Build Docker image
         run: docker build -t my-go-app .
@@ -44,7 +41,7 @@ jobs:
       - name: add Tag
         run: docker tag my-go-app zhkerin13656/my-go-app
 
-      - name: Push Docker image 
+      - name: Push Docker image
         run: docker push zhkerin13656/my-go-app:latest
 
   deploy:  
